@@ -12,6 +12,7 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, "dist"),
     compress: true,
+    historyApiFallback: true,
   },
   resolve: {
     extensions: [".js", ".jsx", ".json"],
@@ -24,7 +25,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /.\jsx?$/,
+        test: /\.jsx?$/,
         loader: "babel-loader",
       },
     ],

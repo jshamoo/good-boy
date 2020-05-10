@@ -28,7 +28,7 @@ const Search = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     getDogs(breed, location, size, age).then((dogs) => {
-      console.log("dogs", dogs);
+      console.log("dogs", dogs.animals);
       setDogs(dogs.animals);
     });
   };
