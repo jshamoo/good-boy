@@ -1,4 +1,5 @@
 import React from "react";
+import Dog from "./Dog";
 
 const Results = ({ dogs }) => (
   <div className="results">
@@ -7,12 +8,7 @@ const Results = ({ dogs }) => (
     ) : (
       dogs.map((dog) => (
         <div key={dog.id}>
-          <img src={dog.photos[0].small} />
-          <p>{dog.name}</p>
-          <p>
-            {dog.gender} - {dog.age} - {dog.breeds.primary}
-          </p>
-          <p>{dog.description || "No description"}</p>
+          <Dog dog={dog} />
         </div>
       ))
     )}

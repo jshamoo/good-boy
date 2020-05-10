@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useDropdown from "./useDropdown";
-import { getDogBreeds, getDogs } from "../breeds";
+import { getDogBreeds, getDogs } from "../petFinder";
 import Results from "./Results";
 
 const Search = () => {
