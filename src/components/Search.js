@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
 import useDropdown from "./useDropdown";
+import { getDogBreeds } from "../breeds";
 
 const Search = () => {
   const [location, setLocation] = useState("Fountain Valley, CA");
-  const [breeds, setBreeds] = useState([
-    "Mastiff",
-    "Border Collie",
-    "German Sheperd",
-    "Mixed",
+  const [breeds, setBreeds] = useState([]);
+  const [breed, BreedDropdown] = useDropdown("Breed", "", breeds);
+  const [size, SizeDropDown] = useDropdown("Size", "", [
+    "small",
+    "medium",
+    "large",
+    "xlarge",
   ]);
-  const [breed, BreedDropdown] = useDropdown("Breed", [], breeds);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getDogBreeds().then((breeds) => setBreeds(breeds));
+  }, []);
 
   return (
     <div className="search">
@@ -25,6 +29,7 @@ const Search = () => {
           />
         </label>
         <BreedDropdown />
+        <SizeDropDown />
         <button>Search</button>
       </form>
     </div>
