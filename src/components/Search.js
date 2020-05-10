@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useDropdown from "./useDropdown";
-import { getDogBreeds } from "../breeds";
+import { getDogBreeds, getDogs } from "../breeds";
 
 const Search = () => {
   const [location, setLocation] = useState("Fountain Valley, CA");
@@ -12,14 +12,28 @@ const Search = () => {
     "large",
     "xlarge",
   ]);
+  const [age, AgeDropDown] = useDropdown("Age", "", [
+    "baby",
+    "young",
+    "adult",
+    "senior",
+  ]);
 
   useEffect(() => {
     getDogBreeds().then((breeds) => setBreeds(breeds));
   }, []);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(breed, location, size, age);
+    getDogs(breed, location, size, age).then((dogs) =>
+      console.log("dogs", dogs)
+    );
+  };
+
   return (
     <div className="search">
-      <form>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="location">
           Location
           <input
@@ -30,6 +44,7 @@ const Search = () => {
         </label>
         <BreedDropdown />
         <SizeDropDown />
+        <AgeDropDown />
         <button>Search</button>
       </form>
     </div>
