@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getADog } from "../petFinder";
+import ErrorBoundary from "./ErrorBoundary";
 
 const DogPage = () => {
   let { id } = useParams();
@@ -37,4 +38,10 @@ const DogPage = () => {
   );
 };
 
-export default DogPage;
+export default function DogPageWithErrorBoundary(props) {
+  return (
+    <ErrorBoundary>
+      <DogPage {...props} />
+    </ErrorBoundary>
+  );
+}
