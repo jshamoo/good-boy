@@ -10,6 +10,7 @@
         "loose": true,
         "modules": false
       }
-    ]
+    ],
+    ["@emotion/babel-preset-css-prop", { "sourceMap": false }]
   ]
 }
