@@ -13,19 +13,26 @@ const DogPage = () => {
     });
   }, []);
 
+  if (!dog) {
+    return <img src="/loading.gif" />;
+  }
   return (
     <div className="dog-page">
-      {!dog ? (
-        "No Dog Found"
-      ) : (
-        <>
-          <h2>{dog.name}</h2>
-          <p>
-            {dog.gender} - {dog.age} - {dog.breeds.primary}
-          </p>
-          <p>{dog.description || "No description"}</p>
-        </>
-      )}
+      <>
+        <h2>{dog.name}</h2>
+        <img
+          src={dog.photos.length ? dog.photos[0].medium : ""}
+          alt={dog.name + " 's photo"}
+        />
+        <p>
+          {dog.gender} - {dog.age} - {dog.breeds.primary}
+        </p>
+        <p>
+          {dog.contact.address.city}, {dog.contact.address.state}
+        </p>
+        <p>{dog.description || "No description"}</p>
+        <button>Adopt {dog.name}</button>
+      </>
     </div>
   );
 };
