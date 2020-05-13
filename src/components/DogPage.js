@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getADog } from "../petFinder";
 import ErrorBoundary from "./ErrorBoundary";
-import Modal from "./Modal";
+// import Modal from "./Modal";
 import ConfirmDialog from "./ConfirmDialog";
 import {
   Grid,
@@ -16,8 +16,9 @@ import {
 } from "@material-ui/core";
 import PetsIcon from "@material-ui/icons/Pets";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
+import InfoIcon from "@material-ui/icons/Info";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
     "margin-top": "100px",
   },
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     padding: 10,
   },
-}));
+});
 
 const DogPage = () => {
   let { id } = useParams();
@@ -76,7 +77,10 @@ const DogPage = () => {
               <LocationOnIcon />
               {dog.contact.address.city}, {dog.contact.address.state}
             </Typography>
-            <Typography>{dog.description || "No description"}</Typography>
+            <Typography>
+              <InfoIcon />
+              {dog.description || "No description"}
+            </Typography>
           </CardContent>
           <CardActions>
             <Button

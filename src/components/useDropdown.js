@@ -1,29 +1,49 @@
 import React, { useState } from "react";
-import { FormGroup, TextField, MenuItem } from "@material-ui/core";
+import {
+  FormGroup,
+  InputLabel,
+  Select,
+  Chip,
+  MenuItem,
+  makeStyles,
+} from "@material-ui/core";
 
+const useStyles = makeStyles({
+  select: {
+    "margin-bottom": 5,
+  },
+  chip: {
+    margin: 2,
+  },
+});
 const useDropdown = (label, defaultState, MenuItems) => {
   const [state, setState] = useState(defaultState);
   const id = `dropdown-${label.replace(" ", "").toLowerCase()}`;
-
+  const classes = useStyles();
   const DropDown = () => (
     <FormGroup>
-      <TextField
-        select
+      <InputLabel>{label}</InputLabel>
+      <Select
+        multiple
         id={id}
         label={label}
+        className={classes.select}
         value={state}
         onChange={(e) => setState(e.target.value)}
-        disabled={!MenuItems.length}
-        margin="normal"
-        size="small"
-        placeholder="All"
+        renderValue={(selected) => (
+          <div className={classes.chips}>
+            {selected.map((value) => (
+              <Chip key={value} label={value} className={classes.chip} />
+            ))}
+          </div>
+        )}
       >
         {MenuItems.map((item) => (
           <MenuItem key={item} value={item}>
             {item}
           </MenuItem>
         ))}
-      </TextField>
+      </Select>
     </FormGroup>
   );
   return [state, DropDown, setState];

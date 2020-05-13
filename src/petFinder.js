@@ -35,8 +35,6 @@ const getDogBreeds = () => {
 };
 
 const getDogs = (breed, location, size, age) => {
-  breed = breed === "all" ? "" : breed;
-  size = size === "all" ? "" : size;
   return new Promise((resolve, reject) => {
     axios("https://api.petfinder.com/v2/oauth2/token", {
       method: "POST",

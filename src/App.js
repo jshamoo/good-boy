@@ -16,19 +16,17 @@ const theme = createMuiTheme({
 const App = () => {
   const [location, setLocation] = useState("Fountain Valley, CA");
   const [breeds, setBreeds] = useState([]);
-  const [breed, BreedDropdown] = useDropdown("Breed", "", breeds);
-  const [size, SizeDropDown] = useDropdown("Size", "", [
-    "Small",
-    "Medium",
-    "Large",
-    "Xlarge",
-  ]);
-  const [age, AgeDropDown] = useDropdown("Age", "", [
-    "Baby",
-    "Young",
-    "Adult",
-    "Senior",
-  ]);
+  const [breed, BreedDropdown] = useDropdown("Breed", [], breeds);
+  const [size, SizeDropDown] = useDropdown(
+    "Size",
+    [],
+    ["Small", "Medium", "Large", "Xlarge"]
+  );
+  const [age, AgeDropDown] = useDropdown(
+    "Age",
+    [],
+    ["Baby", "Young", "Adult", "Senior"]
+  );
   const [dogs, setDogs] = useState(null);
 
   useEffect(() => {
