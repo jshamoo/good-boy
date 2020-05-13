@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import useDropdown from "./useDropdown";
 import { getDogBreeds, getDogs } from "../petFinder";
 import Results from "./Results";
-import { Grid, Paper, FormGroup, TextField, Button } from "@material-ui/core";
+import { Grid, FormGroup, TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
