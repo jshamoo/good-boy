@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getADog } from "../petFinder";
 import ErrorBoundary from "./ErrorBoundary";
 import Modal from "./Modal";
+import ConfirmDialog from "./ConfirmDialog";
 import {
   Grid,
   Card,
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 const DogPage = () => {
   let { id } = useParams();
   const [dog, setDog] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const [open, setOpen] = useState(false);
   const classes = useStyles();
 
   useEffect(() => {
@@ -82,26 +83,14 @@ const DogPage = () => {
             <Button
               color="secondary"
               variant="contained"
-              onClick={() => setShowModal(true)}
+              onClick={() => setOpen(true)}
             >
               Adopt {dog.name}
             </Button>
           </CardActions>
         </Grid>
       </Grid>
-      {showModal && (
-        <Modal>
-          <div>
-            <p>Would you like to adopt {dog.name}?</p>
-            <div className="buttons">
-              <a href={dog.url} target="blank">
-                <button>Yes</button>
-              </a>
-              <button onClick={() => setShowModal(false)}>No</button>
-            </div>
-          </div>
-        </Modal>
-      )}
+      <ConfirmDialog dog={dog} open={open} onClose={() => setOpen(false)} />
     </Card>
   );
 };
