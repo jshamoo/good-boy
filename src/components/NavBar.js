@@ -17,7 +17,7 @@ const NavBar = () => {
       <Link to="/" style={{ textDecoration: "none" }}>
         <Typography variant="h3" noWrap className={classes.headerStyles}>
           Good Boy
-          <img src="dog.png" width="45" />
+          <img src="/dog.png" width="45" />
         </Typography>
       </Link>
     </AppBar>
