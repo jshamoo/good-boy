@@ -16,17 +16,20 @@ import {
 } from "@material-ui/core";
 import PetsIcon from "@material-ui/icons/Pets";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import DescriptionIcon from "@material-ui/icons/Description";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     "margin-top": "100px",
   },
   main: {
-    margin: "20px",
+    margin: "10px",
   },
   img: {
     "border-radius": "5%",
+    "object-fit": "contain",
+  },
+  content: {
+    padding: 10,
   },
 }));
 
@@ -38,13 +41,12 @@ const DogPage = () => {
 
   useEffect(() => {
     getADog(id).then((resp) => {
-      console.log(resp.animal);
       setDog(resp.animal);
     });
   }, []);
 
   if (!dog) {
-    return <img src="/loading.gif" />;
+    return <p>Loading</p>;
   }
   return (
     <Card className={classes.root}>
@@ -52,20 +54,20 @@ const DogPage = () => {
         <Grid item xs={12}>
           <Typography variant="h2"> Meet {dog.name}</Typography>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <CardMedia
             component="img"
             src={
               dog.photos.length
                 ? dog.photos[0].large
-                : "http://placecorgi.com/400/400"
+                : "http://placecorgi.com/300/300"
             }
             alt={dog.name + " 's photo"}
-            height="400"
+            width="600"
             className={classes.img}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={8} className={classes.content}>
           <CardContent>
             <Typography>
               <PetsIcon /> {dog.gender} - {dog.age} - {dog.breeds.primary}
@@ -74,10 +76,7 @@ const DogPage = () => {
               <LocationOnIcon />
               {dog.contact.address.city}, {dog.contact.address.state}
             </Typography>
-            <Typography>
-              <DescriptionIcon />
-              {dog.description || "No description"}
-            </Typography>
+            <Typography>{dog.description || "No description"}</Typography>
           </CardContent>
           <CardActions>
             <Button
