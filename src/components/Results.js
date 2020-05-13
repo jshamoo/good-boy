@@ -1,18 +1,22 @@
 import React from "react";
 import Dog from "./Dog";
+import { Grid, Typography } from "@material-ui/core";
 
 const Results = ({ dogs }) => (
-  <div className="results">
+  <>
     {!dogs.length ? (
-      <h2>No Dogs Found</h2>
+      <Typography variant="h5">No Dogs Found 🐶</Typography>
     ) : (
-      dogs.map((dog) => (
-        <div key={dog.id}>
-          <Dog dog={dog} />
-        </div>
-      ))
+      <Typography variant="h5">Look at these good boys 💖</Typography>
     )}
-  </div>
+    <Grid className="results" container>
+      {dogs.map((dog) => (
+        <Grid key={dog.id} item>
+          <Dog dog={dog} />
+        </Grid>
+      ))}
+    </Grid>
+  </>
 );
 
 export default Results;

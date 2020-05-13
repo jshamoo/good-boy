@@ -1,25 +1,30 @@
 import React, { useState } from "react";
+import { FormGroup, TextField, MenuItem } from "@material-ui/core";
 
-const useDropdown = (label, defaultState, options) => {
+const useDropdown = (label, defaultState, MenuItems) => {
   const [state, setState] = useState(defaultState);
   const id = `dropdown-${label.replace(" ", "").toLowerCase()}`;
+
   const DropDown = () => (
-    <label htmlFor={id}>
-      {label}
-      <select
+    <FormGroup>
+      <TextField
+        select
         id={id}
+        label={label}
         value={state}
         onChange={(e) => setState(e.target.value)}
-        disabled={!options.length}
+        disabled={!MenuItems.length}
+        margin="normal"
+        size="small"
+        placeholder="All"
       >
-        <option>All</option>
-        {options.map((item) => (
-          <option key={item} value={item}>
+        {MenuItems.map((item) => (
+          <MenuItem key={item} value={item}>
             {item}
-          </option>
+          </MenuItem>
         ))}
-      </select>
-    </label>
+      </TextField>
+    </FormGroup>
   );
   return [state, DropDown, setState];
 };
