@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import useDropdown from "./useDropdown";
-import { getDogBreeds, getDogs } from "../petFinder";
+import React from "react";
 import Results from "./Results";
 import { Grid, FormGroup, TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -19,34 +17,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Search = () => {
-  const [location, setLocation] = useState("Fountain Valley, CA");
-  const [breeds, setBreeds] = useState([]);
-  const [breed, BreedDropdown] = useDropdown("Breed", "", breeds);
-  const [size, SizeDropDown] = useDropdown("Size", "", [
-    "Small",
-    "Medium",
-    "Large",
-    "Xlarge",
-  ]);
-  const [age, AgeDropDown] = useDropdown("Age", "", [
-    "Baby",
-    "Young",
-    "Adult",
-    "Senior",
-  ]);
-  const [dogs, setDogs] = useState([]);
-
-  useEffect(() => {
-    getDogBreeds().then((breeds) => setBreeds(breeds));
-  }, []);
+const Search = (props) => {
+  const {
+    dogs,
+    location,
+    handleSearch,
+    updateLocation,
+    BreedDropdown,
+    SizeDropDown,
+    AgeDropDown,
+  } = props;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    getDogs(breed, location, size, age).then((dogs) => {
-      console.log("dogs", dogs.animals);
-      setDogs(dogs.animals);
-    });
+    handleSearch();
   };
 
   const classes = useStyles();
@@ -60,7 +44,7 @@ const Search = () => {
               id="location"
               label="Location"
               value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              onChange={(e) => updateLocation(e.target.value)}
               margin="normal"
               size="small"
             />

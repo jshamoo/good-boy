@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import {
   Card,
@@ -15,6 +16,10 @@ const useStyles = makeStyles({
   root: {
     width: 300,
     margin: "5px",
+  },
+  link: {
+    "text-decoration": "none",
+    color: "primary",
   },
 });
 
@@ -41,8 +46,10 @@ const Dog = ({ dog }) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button color="primary" href={`/dogs/${dog.id}`}>
-          Learn More
+        <Button>
+          <Link to={`/dogs/${dog.id}`} className={classes.link}>
+            Learn More
+          </Link>
         </Button>
       </CardActions>
     </Card>

@@ -44,11 +44,9 @@ const Results = ({ dogs }) => {
           No dogs found 🐶 Try a different search 🔎
         </Typography>
       ) : (
-        <Zoom in>
-          <Typography variant="h5" id="top-anchor">
-            Look at these good boys 💖
-          </Typography>
-        </Zoom>
+        <Typography variant="h5" id="top-anchor">
+          Look at these good boys 💖
+        </Typography>
       )}
       <Grid className="results" container>
         {dogs.map((dog) => (
