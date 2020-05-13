@@ -1,7 +1,14 @@
 # Good Boy
 
-A dog adoption website. Dog lovers can specify requirements and
+A dog adoption website using Petfinder API.
+
+#### Home Page
+
 ![Home Page Image](./README_IMG/home-page.png)
+
+#### Details Page
+
+![Details Page Image](./README_IMG/details.png)
 
 ## Getting Started
 
@@ -13,10 +20,20 @@ Prerequisites: Node.js version 10+
 git clone https://github.com/jshamoo/good-boy.git
 ```
 
-2. Navigate to good-boy directory
+2. Get a Petfinder API KEY
+   visit ![Petfinder Developer Docs](https://www.petfinder.com/developers/) to get your own API KEY and SECRET
+
+3. Navigate to good-boy directory and update your API KEY and SECRET to exampleConfig.js
 
 ```
 cd good-boy
+```
+
+4. Rename exampleConfig.js to config.js
+
+```
+cd ..
+mv exampleConfig.js config.js
 ```
 
 3. Install dependencies
@@ -40,4 +57,4 @@ npm run dev
 
 ## Acknowledgments
 
-[Front End Master](https://frontendmasters.com/courses/complete-react-v5/)
+[Frontend Master](https://frontendmasters.com/courses/complete-react-v5/)
