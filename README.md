@@ -33,7 +33,6 @@ cd good-boy
 4. Rename exampleConfig.js to config.js
 
 ```
-cd ..
 mv exampleConfig.js config.js
 ```
 
