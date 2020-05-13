@@ -29,7 +29,7 @@ const App = () => {
     "Adult",
     "Senior",
   ]);
-  const [dogs, setDogs] = useState([]);
+  const [dogs, setDogs] = useState(null);
 
   useEffect(() => {
     getDogBreeds().then((breeds) => setBreeds(breeds));

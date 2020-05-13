@@ -46,7 +46,7 @@ const DogPage = () => {
   }, []);
 
   if (!dog) {
-    return <p>Loading</p>;
+    return <img src="/loading.gif" />;
   }
   return (
     <Card className={classes.root}>

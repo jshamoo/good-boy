@@ -37,17 +37,23 @@ const Results = ({ dogs }) => {
     );
   };
 
+  if (dogs === null) {
+    return <img src="/loading.gif" />;
+  }
+
+  if (dogs.length === 0) {
+    return (
+      <Typography variant="h5">
+        No dogs found 🐶 Try a different search 🔎
+      </Typography>
+    );
+  }
+
   return (
     <>
-      {!dogs.length ? (
-        <Typography variant="h5">
-          No dogs found 🐶 Try a different search 🔎
-        </Typography>
-      ) : (
-        <Typography variant="h5" id="top-anchor">
-          Look at these good boys 💖
-        </Typography>
-      )}
+      <Typography variant="h5" id="top-anchor">
+        Look at these good boys 💖
+      </Typography>
       <Grid className="results" container>
         {dogs.map((dog) => (
           <Grid key={dog.id} item>
