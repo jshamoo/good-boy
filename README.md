@@ -21,7 +21,8 @@ git clone https://github.com/jshamoo/good-boy.git
 ```
 
 2. Get a Petfinder API KEY
-   visit [Petfinder Developer Docs](https://www.petfinder.com/developers/) to get your own API KEY and SECRET
+
+Visit [Petfinder Developer Docs](https://www.petfinder.com/developers/) to get your own API KEY and SECRET
 
 3. Navigate to good-boy directory and update your API KEY and SECRET to exampleConfig.js
 
