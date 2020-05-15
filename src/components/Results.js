@@ -66,12 +66,14 @@ const Results = ({ dogs, totalPages, page, handlePageChange }) => {
           </Grid>
         ))}
       </Grid>
-      <Pagination
-        count={totalPages}
-        page={page}
-        color="primary"
-        onChange={handlePageClick}
-      />
+      {totalPages > 1 && (
+        <Pagination
+          count={totalPages}
+          page={page}
+          color="primary"
+          onChange={handlePageClick}
+        />
+      )}
       <ScrollTop>
         <Fab color="secondary" size="small">
           <KeyboardArrowUpIcon />

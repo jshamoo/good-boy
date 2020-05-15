@@ -44,9 +44,10 @@ const App = () => {
   }, [page]);
 
   const handleSearch = () => {
-    getDogs(breed, location, size, age, page).then((dogs) => {
+    getDogs(breed, location, size, age).then((dogs) => {
       setDogs(dogs.animals);
       setTotalPages(dogs.pagination.total_pages);
+      setPage(1);
     });
   };
 
