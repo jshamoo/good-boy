@@ -31,6 +31,7 @@ const Dropdown = (label, options, dropdownState, setDropdownState) => {
           label={label}
           className={classes.select}
           value={dropdownState}
+          disabled={options.length === 0}
           onChange={(e) => setDropdownState(e.target.value)}
           renderValue={(selected) => (
             <div className={classes.chips}>
@@ -40,11 +41,12 @@ const Dropdown = (label, options, dropdownState, setDropdownState) => {
             </div>
           )}
         >
-          {options.map((item) => (
-            <MenuItem key={item} value={item}>
-              {item}
-            </MenuItem>
-          ))}
+          {options.length &&
+            options.map((item) => (
+              <MenuItem key={item} value={item}>
+                {item}
+              </MenuItem>
+            ))}
         </Select>
       </FormGroup>
     );

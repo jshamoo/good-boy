@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import Results from "./Results";
-import { Grid, FormGroup, TextField, Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import Dropdown from "./Dropdown";
+import {
+  setLocation,
+  setAge,
+  setBreed,
+  setSize,
+  fetchBreeds,
+} from "../actions";
+import {
+  Grid,
+  FormGroup,
+  TextField,
+  Button,
+  makeStyles,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   rootStyles: {
@@ -17,19 +31,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const sizes = ["Small", "Medium", "Large", "Xlarge"];
+const ages = ["Baby", "Young", "Adult", "Senior"];
+
 const Search = (props) => {
   const {
-    dogs,
-    totalPages,
-    page,
-    location,
     handleSearch,
-    handlePageChange,
+    // handlePageChange,
+    location,
     updateLocation,
-    BreedDropdown,
-    SizeDropDown,
-    AgeDropDown,
+    breed,
+    updateBreed,
+    size,
+    updateSize,
+    age,
+    updateAge,
+    breeds,
+    updateBreeds,
   } = props;
+
+  const BreedDropdown = Dropdown("Breed", breeds, breed, updateBreed);
+  const SizeDropDown = Dropdown("Size", sizes, size, updateSize);
+  const AgeDropDown = Dropdown("Age", ages, age, updateAge);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,6 +60,17 @@ const Search = (props) => {
   };
 
   const classes = useStyles();
+
+  useEffect(() => {
+    updateBreeds();
+  }, []);
+
+  // useEffect(() => {
+  //   getDogs(breed, location, size, age, page).then((dogs) => {
+  //     setDogs(dogs.animals);
+  //     setTotalPages(dogs.pagination.total_pages);
+  //   });
+  // }, [page]);
 
   return (
     <Grid className={classes.rootStyles} container spacing={3}>
@@ -61,15 +95,31 @@ const Search = (props) => {
         </form>
       </Grid>
       <Grid item xs={9}>
-        <Results
+        {/* <Results
           dogs={dogs}
           page={page}
           totalPages={totalPages}
           handlePageChange={handlePageChange}
-        />
+        /> */}
       </Grid>
     </Grid>
   );
 };
 
-export default Search;
+const mapStateToProps = (state) => ({
+  location: state.form.location,
+  breed: state.form.breed,
+  size: state.form.size,
+  age: state.form.age,
+  breeds: state.breeds,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  updateLocation: (location) => dispatch(setLocation(location)),
+  updateBreed: (breed) => dispatch(setBreed(breed)),
+  updateSize: (size) => dispatch(setSize(size)),
+  updateAge: (age) => dispatch(setAge(age)),
+  updateBreeds: () => dispatch(fetchBreeds()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
