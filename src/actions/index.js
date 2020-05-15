@@ -37,7 +37,6 @@ export const fetchBreeds = () => (dispatch) =>
 
 export const fetchDogs = (breed, location, size, age, page) => (dispatch) =>
   getDogs(breed, location, size, age, page).then((resp) => {
-    console.log(resp.animals);
     dispatch({
       type: "FETCH_DOGS",
       dogs: resp.animals,

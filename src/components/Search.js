@@ -48,6 +48,7 @@ const Search = (props) => {
     updateAge,
     breeds,
     updateBreeds,
+    page,
   } = props;
 
   const BreedDropdown = Dropdown("Breed", breeds, breed, updateBreed);
@@ -56,7 +57,7 @@ const Search = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleSearch();
+    handleSearch(breed, location, size, age, page);
   };
 
   const classes = useStyles();
@@ -107,6 +108,7 @@ const mapStateToProps = (state) => ({
   size: state.form.size,
   age: state.form.age,
   breeds: state.breeds,
+  page: state.page || 1,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -115,8 +117,9 @@ const mapDispatchToProps = (dispatch) => ({
   updateSize: (size) => dispatch(setSize(size)),
   updateAge: (age) => dispatch(setAge(age)),
   updateBreeds: () => dispatch(fetchBreeds()),
-  handleSearch: (breed, location, size, age, page) =>
-    dispatch(fetchDogs(breed, location, size, age, page)),
+  handleSearch: (breed, location, size, age, page) => {
+    dispatch(fetchDogs(breed, location, size, age, page));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
