@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Search from "./components/Search";
-import DogPage from "./components/DogPage";
 import NavBar from "./components/NavBar";
-import useDropdown from "./components/useDropdown";
-import { getDogBreeds, getDogs } from "./petFinder";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { Paper } from "@material-ui/core";
+import Search from "./components/Search";
+import Results from "./components/Results";
+import DogPage from "./components/DogPage";
+import {
+  createMuiTheme,
+  ThemeProvider,
+  makeStyles,
+} from "@material-ui/core/styles";
+import { Paper, Grid } from "@material-ui/core";
 
 const theme = createMuiTheme({
   typography: {
@@ -14,46 +17,15 @@ const theme = createMuiTheme({
   },
 });
 
+const useStyles = makeStyles((theme) => ({
+  rootStyles: {
+    flexGrow: 1,
+    "margin-top": theme.spacing(12),
+  },
+}));
+
 const App = () => {
-  const [location, setLocation] = useState("Fountain Valley, CA");
-  const [breeds, setBreeds] = useState([]);
-  const [breed, BreedDropdown] = useDropdown("Breed", [], breeds);
-  const [size, SizeDropDown] = useDropdown(
-    "Size",
-    [],
-    ["Small", "Medium", "Large", "Xlarge"]
-  );
-  const [age, AgeDropDown] = useDropdown(
-    "Age",
-    [],
-    ["Baby", "Young", "Adult", "Senior"]
-  );
-  const [dogs, setDogs] = useState(null);
-  const [totalPages, setTotalPages] = useState(null);
-  const [page, setPage] = useState(1);
-
-  useEffect(() => {
-    getDogBreeds().then((breeds) => setBreeds(breeds));
-  }, []);
-
-  useEffect(() => {
-    getDogs(breed, location, size, age, page).then((dogs) => {
-      setDogs(dogs.animals);
-      setTotalPages(dogs.pagination.total_pages);
-    });
-  }, [page]);
-
-  const handleSearch = () => {
-    getDogs(breed, location, size, age).then((dogs) => {
-      setDogs(dogs.animals);
-      setTotalPages(dogs.pagination.total_pages);
-      setPage(1);
-    });
-  };
-
-  const handlePageChange = (value) => {
-    setPage(value);
-  };
+  const classes = useStyles();
 
   return (
     <ThemeProvider theme={theme}>
@@ -62,18 +34,14 @@ const App = () => {
           <NavBar />
           <Switch>
             <Route exact path="/">
-              <Search
-                dogs={dogs}
-                location={location}
-                handleSearch={handleSearch}
-                page={page}
-                totalPages={totalPages}
-                handlePageChange={handlePageChange}
-                updateLocation={setLocation}
-                BreedDropdown={BreedDropdown}
-                SizeDropDown={SizeDropDown}
-                AgeDropDown={AgeDropDown}
-              />
+              <Grid className={classes.rootStyles} container spacing={3}>
+                <Grid item xs={3}>
+                  <Search />
+                </Grid>
+                <Grid item xs={9}>
+                  <Results />
+                </Grid>
+              </Grid>
             </Route>
             <Route path="/dogs/:id">
               <DogPage />
