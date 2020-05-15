@@ -34,7 +34,7 @@ const getDogBreeds = () => {
   });
 };
 
-const getDogs = (breed, location, size, age) => {
+const getDogs = (breed, location, size, age, page) => {
   return new Promise((resolve, reject) => {
     axios("https://api.petfinder.com/v2/oauth2/token", {
       method: "POST",
@@ -54,13 +54,16 @@ const getDogs = (breed, location, size, age) => {
             size,
             age,
             status: "adoptable",
+            page,
           },
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
             Authorization: `Bearer ${TOKEN}`,
           },
         })
-          .then((resp) => resolve(resp.data))
+          .then((resp) => {
+            resolve(resp.data);
+          })
           .catch((err) => {
             console.log("GET Dogs error", err);
             reject(err);

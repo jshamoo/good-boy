@@ -9,6 +9,7 @@ import {
   Fab,
 } from "@material-ui/core";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import Pagination from "@material-ui/lab/Pagination";
 
 const useStyles = makeStyles((theme) => ({
   scrollTop: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Results = ({ dogs }) => {
+const Results = ({ dogs, totalPages, page, handlePageChange }) => {
   const ScrollTop = ({ children }) => {
     const classes = useStyles();
     const trigger = useScrollTrigger();
@@ -35,6 +36,10 @@ const Results = ({ dogs }) => {
         </div>
       </Zoom>
     );
+  };
+
+  const handlePageClick = (e, value) => {
+    handlePageChange(value);
   };
 
   if (dogs === null) {
@@ -61,6 +66,12 @@ const Results = ({ dogs }) => {
           </Grid>
         ))}
       </Grid>
+      <Pagination
+        count={totalPages}
+        page={page}
+        color="primary"
+        onChange={handlePageClick}
+      />
       <ScrollTop>
         <Fab color="secondary" size="small">
           <KeyboardArrowUpIcon />

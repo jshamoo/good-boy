@@ -7,6 +7,7 @@ import useDropdown from "./components/useDropdown";
 import { getDogBreeds, getDogs } from "./petFinder";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
+
 const theme = createMuiTheme({
   typography: {
     fontSize: 12,
@@ -28,21 +29,29 @@ const App = () => {
     ["Baby", "Young", "Adult", "Senior"]
   );
   const [dogs, setDogs] = useState(null);
+  const [totalPages, setTotalPages] = useState(null);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     getDogBreeds().then((breeds) => setBreeds(breeds));
   }, []);
 
   useEffect(() => {
-    getDogs(breed, location, size, age).then((dogs) => {
+    getDogs(breed, location, size, age, page).then((dogs) => {
       setDogs(dogs.animals);
+      setTotalPages(dogs.pagination.total_pages);
     });
-  }, []);
+  }, [page]);
 
   const handleSearch = () => {
-    getDogs(breed, location, size, age).then((dogs) => {
+    getDogs(breed, location, size, age, page).then((dogs) => {
       setDogs(dogs.animals);
+      setTotalPages(dogs.pagination.total_pages);
     });
+  };
+
+  const handlePageChange = (value) => {
+    setPage(value);
   };
 
   return (
@@ -56,6 +65,9 @@ const App = () => {
                 dogs={dogs}
                 location={location}
                 handleSearch={handleSearch}
+                page={page}
+                totalPages={totalPages}
+                handlePageChange={handlePageChange}
                 updateLocation={setLocation}
                 BreedDropdown={BreedDropdown}
                 SizeDropDown={SizeDropDown}

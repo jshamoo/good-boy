@@ -20,8 +20,11 @@ const useStyles = makeStyles((theme) => ({
 const Search = (props) => {
   const {
     dogs,
+    totalPages,
+    page,
     location,
     handleSearch,
+    handlePageChange,
     updateLocation,
     BreedDropdown,
     SizeDropDown,
@@ -58,7 +61,12 @@ const Search = (props) => {
         </form>
       </Grid>
       <Grid item xs={9}>
-        <Results dogs={dogs} />
+        <Results
+          dogs={dogs}
+          page={page}
+          totalPages={totalPages}
+          handlePageChange={handlePageChange}
+        />
       </Grid>
     </Grid>
   );
