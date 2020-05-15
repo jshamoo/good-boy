@@ -40,12 +40,6 @@ export const fetchDogs = (breed, location, size, age, page) => (dispatch) =>
     dispatch({
       type: "FETCH_DOGS",
       dogs: resp.animals,
+      totalPages: resp.pagination.total_pages,
     });
   });
-
-export const setTotalPages = (totalPages) => {
-  return {
-    type: "SET_TOTAL_PAGES",
-    totalPages,
-  };
-};

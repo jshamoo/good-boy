@@ -36,6 +36,7 @@ const sizes = ["Small", "Medium", "Large", "Xlarge"];
 const ages = ["Baby", "Young", "Adult", "Senior"];
 
 const Search = (props) => {
+  const classes = useStyles();
   const {
     handleSearch,
     location,
@@ -48,23 +49,21 @@ const Search = (props) => {
     updateAge,
     breeds,
     updateBreeds,
-    page,
   } = props;
 
   const BreedDropdown = Dropdown("Breed", breeds, breed, updateBreed);
   const SizeDropDown = Dropdown("Size", sizes, size, updateSize);
   const AgeDropDown = Dropdown("Age", ages, age, updateAge);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleSearch(breed, location, size, age, page);
-  };
-
-  const classes = useStyles();
-
   useEffect(() => {
     updateBreeds();
+    handleSearch();
   }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleSearch(breed, location, size, age, 1);
+  };
 
   // useEffect(() => {
   //   getDogs(breed, location, size, age, page).then((dogs) => {
@@ -108,7 +107,6 @@ const mapStateToProps = (state) => ({
   size: state.form.size,
   age: state.form.age,
   breeds: state.breeds,
-  page: state.page || 1,
 });
 
 const mapDispatchToProps = (dispatch) => ({

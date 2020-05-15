@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { setPage } from "../actions";
 import Dog from "./Dog";
 import {
   Grid,
@@ -20,25 +21,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Results = (props) => {
-  const ScrollTop = ({ children }) => {
-    const classes = useStyles();
-    const trigger = useScrollTrigger();
+const ScrollTop = ({ children }) => {
+  const classes = useStyles();
+  const trigger = useScrollTrigger();
 
-    const handleClick = () => {
-      const anchor = document.querySelector("#top-anchor");
-      anchor.scrollIntoView({ behavior: "smooth", block: "center" });
-    };
-
-    return (
-      <Zoom in={trigger}>
-        <div onClick={handleClick} className={classes.scrollTop}>
-          {children}
-        </div>
-      </Zoom>
-    );
+  const handleClick = () => {
+    const anchor = document.querySelector("#top-anchor");
+    anchor.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
+  return (
+    <Zoom in={trigger}>
+      <div onClick={handleClick} className={classes.scrollTop}>
+        {children}
+      </div>
+    </Zoom>
+  );
+};
+
+const Results = (props) => {
   const { dogs, totalPages, page, handlePageChange } = props;
 
   const handlePageClick = (e, value) => {
@@ -87,9 +88,13 @@ const Results = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  dogs: state.dogs,
+  dogs: state.animals.dogs,
+  totalPages: state.animals.totalPages,
+  page: state.form.page,
 });
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  handlePageChange: (page) => dispatch(setPage(page)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Results);

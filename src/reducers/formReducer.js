@@ -3,6 +3,7 @@ const initialState = {
   breed: [],
   size: [],
   age: [],
+  page: 1,
 };
 
 const formReducer = (state = initialState, action) => {
@@ -15,6 +16,8 @@ const formReducer = (state = initialState, action) => {
       return { ...state, size: action.size };
     case "SET_AGE":
       return { ...state, age: action.age };
+    case "SET_PAGE":
+      return { ...state, page: action.page };
     default:
       return state;
   }
