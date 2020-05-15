@@ -65,11 +65,11 @@ const App = () => {
               <Search
                 dogs={dogs}
                 location={location}
+                updateLocation={setLocation}
                 handleSearch={handleSearch}
                 page={page}
                 totalPages={totalPages}
                 handlePageChange={handlePageChange}
-                updateLocation={setLocation}
                 BreedDropdown={BreedDropdown}
                 SizeDropDown={SizeDropDown}
                 AgeDropDown={AgeDropDown}
