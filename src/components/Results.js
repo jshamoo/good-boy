@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import Dog from "./Dog";
 import {
   Grid,
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Results = ({ dogs, totalPages, page, handlePageChange }) => {
+const Results = (props) => {
   const ScrollTop = ({ children }) => {
     const classes = useStyles();
     const trigger = useScrollTrigger();
@@ -37,6 +38,8 @@ const Results = ({ dogs, totalPages, page, handlePageChange }) => {
       </Zoom>
     );
   };
+
+  const { dogs, totalPages, page, handlePageChange } = props;
 
   const handlePageClick = (e, value) => {
     handlePageChange(value);
@@ -83,4 +86,10 @@ const Results = ({ dogs, totalPages, page, handlePageChange }) => {
   );
 };
 
-export default Results;
+const mapStateToProps = (state) => ({
+  dogs: state.dogs,
+});
+
+const mapDispatchToProps = (dispatch) => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Results);

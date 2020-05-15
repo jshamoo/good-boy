@@ -8,6 +8,7 @@ import {
   setBreed,
   setSize,
   fetchBreeds,
+  fetchDogs,
 } from "../actions";
 import {
   Grid,
@@ -37,7 +38,6 @@ const ages = ["Baby", "Young", "Adult", "Senior"];
 const Search = (props) => {
   const {
     handleSearch,
-    // handlePageChange,
     location,
     updateLocation,
     breed,
@@ -95,12 +95,7 @@ const Search = (props) => {
         </form>
       </Grid>
       <Grid item xs={9}>
-        {/* <Results
-          dogs={dogs}
-          page={page}
-          totalPages={totalPages}
-          handlePageChange={handlePageChange}
-        /> */}
+        <Results />
       </Grid>
     </Grid>
   );
@@ -120,6 +115,8 @@ const mapDispatchToProps = (dispatch) => ({
   updateSize: (size) => dispatch(setSize(size)),
   updateAge: (age) => dispatch(setAge(age)),
   updateBreeds: () => dispatch(fetchBreeds()),
+  handleSearch: (breed, location, size, age, page) =>
+    dispatch(fetchDogs(breed, location, size, age, page)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

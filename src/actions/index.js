@@ -26,7 +26,7 @@ export const setPage = (page) => {
 };
 
 // async actions
-import { getDogBreeds } from "../petFinder";
+import { getDogBreeds, getDogs } from "../petFinder";
 export const fetchBreeds = () => (dispatch) =>
   getDogBreeds().then((breeds) =>
     dispatch({
@@ -35,12 +35,14 @@ export const fetchBreeds = () => (dispatch) =>
     })
   );
 
-export const fetchDogs = (dogs) => {
-  return {
-    type: "FETCH_DOGS",
-    dogs,
-  };
-};
+export const fetchDogs = (breed, location, size, age, page) => (dispatch) =>
+  getDogs(breed, location, size, age, page).then((resp) => {
+    console.log(resp.animals);
+    dispatch({
+      type: "FETCH_DOGS",
+      dogs: resp.animals,
+    });
+  });
 
 export const setTotalPages = (totalPages) => {
   return {
