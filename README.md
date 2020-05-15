@@ -54,6 +54,7 @@ npm run dev
 
 - [React](https://reactjs.org/docs/getting-started.html)
 - [React Router](https://reacttraining.com/react-router/web/guides/quick-start)
+- [Redux](https://react-redux.js.org/introduction/quick-start)
 - [Webpack Web Server](https://webpack.js.org/configuration/dev-server/)
 - [Material-UI](https://material-ui.com/getting-started/installation/)
 
