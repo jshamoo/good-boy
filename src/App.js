@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
 import Search from "./components/Search";
 import DogPage from "./components/DogPage";
 import NavBar from "./components/NavBar";
-import useDropdown from "./components/useDropdown";
+import Dropdown from "./components/Dropdown";
 import { getDogBreeds, getDogs } from "./petFinder";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
+import { setLocation, setAge, setBreed, setSize } from "./actions";
 
 const theme = createMuiTheme({
   typography: {
@@ -14,20 +16,26 @@ const theme = createMuiTheme({
   },
 });
 
-const App = () => {
-  const [location, setLocation] = useState("Fountain Valley, CA");
+const App = (props) => {
+  const sizes = ["Small", "Medium", "Large", "Xlarge"];
+  const ages = ["Baby", "Young", "Adult", "Senior"];
+  const {
+    location,
+    updateLocation,
+    breed,
+    updateBreed,
+    size,
+    updateSize,
+    age,
+    updateAge,
+  } = props;
+
   const [breeds, setBreeds] = useState([]);
-  const [breed, BreedDropdown] = useDropdown("Breed", [], breeds);
-  const [size, SizeDropDown] = useDropdown(
-    "Size",
-    [],
-    ["Small", "Medium", "Large", "Xlarge"]
-  );
-  const [age, AgeDropDown] = useDropdown(
-    "Age",
-    [],
-    ["Baby", "Young", "Adult", "Senior"]
-  );
+
+  const BreedDropdown = Dropdown("Breed", breeds, breed, updateBreed);
+  const SizeDropDown = Dropdown("Size", sizes, size, updateSize);
+  const AgeDropDown = Dropdown("Age", ages, age, updateAge);
+
   const [dogs, setDogs] = useState(null);
   const [totalPages, setTotalPages] = useState(null);
   const [page, setPage] = useState(1);
@@ -65,7 +73,7 @@ const App = () => {
               <Search
                 dogs={dogs}
                 location={location}
-                updateLocation={setLocation}
+                updateLocation={updateLocation}
                 handleSearch={handleSearch}
                 page={page}
                 totalPages={totalPages}
@@ -85,4 +93,18 @@ const App = () => {
   );
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  location: state.form.location,
+  breed: state.form.breed,
+  size: state.form.size,
+  age: state.form.age,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  updateLocation: (location) => dispatch(setLocation(location)),
+  updateBreed: (breed) => dispatch(setBreed(breed)),
+  updateSize: (size) => dispatch(setSize(size)),
+  updateAge: (age) => dispatch(setAge(age)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,7 +1,7 @@
-export const setAge = (age) => {
+export const setBreeds = (breeds) => {
   return {
-    type: "SET_AGE",
-    age,
+    type: "SET_BREEDS",
+    breeds,
   };
 };
 
@@ -12,17 +12,17 @@ export const setBreed = (breed) => {
   };
 };
 
-export const setBreeds = (breeds) => {
+export const setAge = (age) => {
   return {
-    type: "SET_BREEDS",
-    breeds,
+    type: "SET_AGE",
+    age,
   };
 };
 
-export const setDogs = (dogs) => {
+export const setSize = (size) => {
   return {
-    type: "SET_DOGS",
-    dogs,
+    type: "SET_SIZE",
+    size,
   };
 };
 
@@ -33,17 +33,17 @@ export const setLocation = (location) => {
   };
 };
 
+export const setDogs = (dogs) => {
+  return {
+    type: "SET_DOGS",
+    dogs,
+  };
+};
+
 export const setPage = (page) => {
   return {
     type: "SET_PAGE",
     page,
-  };
-};
-
-export const setSize = (size) => {
-  return {
-    type: "SET_SIZE",
-    size,
   };
 };
 
