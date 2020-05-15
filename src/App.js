@@ -1,12 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-// import { connect } from "react-redux";
-import Search from "./components/Search";
-import DogPage from "./components/DogPage";
 import NavBar from "./components/NavBar";
-// import { getDogBreeds, getDogs } from "./petFinder";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { Paper } from "@material-ui/core";
+import Search from "./components/Search";
+import Results from "./components/Results";
+import DogPage from "./components/DogPage";
+import {
+  createMuiTheme,
+  ThemeProvider,
+  makeStyles,
+} from "@material-ui/core/styles";
+import { Paper, Grid } from "@material-ui/core";
 
 const theme = createMuiTheme({
   typography: {
@@ -14,18 +17,15 @@ const theme = createMuiTheme({
   },
 });
 
-const App = () => {
-  // const handleSearch = () => {
-  //   getDogs(breed, location, size, age).then((dogs) => {
-  //     setDogs(dogs.animals);
-  //     setTotalPages(dogs.pagination.total_pages);
-  //     setPage(1);
-  //   });
-  // };
+const useStyles = makeStyles((theme) => ({
+  rootStyles: {
+    flexGrow: 1,
+    "margin-top": theme.spacing(12),
+  },
+}));
 
-  // const handlePageChange = (value) => {
-  //   setPage(value);
-  // };
+const App = () => {
+  const classes = useStyles();
 
   return (
     <ThemeProvider theme={theme}>
@@ -34,7 +34,14 @@ const App = () => {
           <NavBar />
           <Switch>
             <Route exact path="/">
-              <Search />
+              <Grid className={classes.rootStyles} container spacing={3}>
+                <Grid item xs={3}>
+                  <Search />
+                </Grid>
+                <Grid item xs={9}>
+                  <Results />
+                </Grid>
+              </Grid>
             </Route>
             <Route path="/dogs/:id">
               <DogPage />

@@ -1,50 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { setPage } from "../actions";
+import { setPage, fetchDogs } from "../actions";
 import Dog from "./Dog";
-import {
-  Grid,
-  Typography,
-  useScrollTrigger,
-  Zoom,
-  makeStyles,
-  Fab,
-} from "@material-ui/core";
+import ScrollTop from "./ScrollTop";
+import { Grid, Typography, Fab } from "@material-ui/core";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import Pagination from "@material-ui/lab/Pagination";
 
-const useStyles = makeStyles((theme) => ({
-  scrollTop: {
-    position: "fixed",
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-  },
-}));
+const Results = (props) => {
+  const {
+    breed,
+    location,
+    size,
+    age,
+    dogs,
+    totalPages,
+    page,
+    handlePageChange,
+    handleSearch,
+  } = props;
 
-const ScrollTop = ({ children }) => {
-  const classes = useStyles();
-  const trigger = useScrollTrigger();
-
-  const handleClick = () => {
+  const handlePageClick = (e, value) => {
+    handlePageChange(value);
     const anchor = document.querySelector("#top-anchor");
     anchor.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
-  return (
-    <Zoom in={trigger}>
-      <div onClick={handleClick} className={classes.scrollTop}>
-        {children}
-      </div>
-    </Zoom>
-  );
-};
-
-const Results = (props) => {
-  const { dogs, totalPages, page, handlePageChange } = props;
-
-  const handlePageClick = (e, value) => {
-    handlePageChange(value);
-  };
+  useEffect(() => {
+    handleSearch(breed, location, size, age, page);
+  }, [page]);
 
   if (dogs === null) {
     return <img src="/loading.gif" />;
@@ -71,12 +55,16 @@ const Results = (props) => {
         ))}
       </Grid>
       {totalPages > 1 && (
-        <Pagination
-          count={totalPages}
-          page={page}
-          color="primary"
-          onChange={handlePageClick}
-        />
+        <Grid container justify="center">
+          <Grid item>
+            <Pagination
+              count={totalPages}
+              page={page}
+              color="primary"
+              onChange={handlePageClick}
+            />
+          </Grid>
+        </Grid>
       )}
       <ScrollTop>
         <Fab color="secondary" size="small">
@@ -90,11 +78,18 @@ const Results = (props) => {
 const mapStateToProps = (state) => ({
   dogs: state.animals.dogs,
   totalPages: state.animals.totalPages,
+  breed: state.form.breed,
+  location: state.form.location,
+  size: state.form.size,
+  age: state.form.age,
   page: state.form.page,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   handlePageChange: (page) => dispatch(setPage(page)),
+  handleSearch: (breed, location, size, age, page) => {
+    dispatch(fetchDogs(breed, location, size, age, page));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Results);

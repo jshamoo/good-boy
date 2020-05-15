@@ -1,28 +1,18 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import Results from "./Results";
 import Dropdown from "./Dropdown";
 import {
   setLocation,
   setAge,
   setBreed,
   setSize,
+  setPage,
   fetchBreeds,
   fetchDogs,
 } from "../actions";
-import {
-  Grid,
-  FormGroup,
-  TextField,
-  Button,
-  makeStyles,
-} from "@material-ui/core";
+import { FormGroup, TextField, Button, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  rootStyles: {
-    flexGrow: 1,
-    "margin-top": theme.spacing(12),
-  },
   formStyles: {
     "margin-left": theme.spacing(2),
     maxWidth: 200,
@@ -49,6 +39,7 @@ const Search = (props) => {
     updateAge,
     breeds,
     updateBreeds,
+    resetPage,
   } = props;
 
   const BreedDropdown = Dropdown("Breed", breeds, breed, updateBreed);
@@ -57,47 +48,33 @@ const Search = (props) => {
 
   useEffect(() => {
     updateBreeds();
-    handleSearch();
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    resetPage();
     handleSearch(breed, location, size, age, 1);
   };
 
-  // useEffect(() => {
-  //   getDogs(breed, location, size, age, page).then((dogs) => {
-  //     setDogs(dogs.animals);
-  //     setTotalPages(dogs.pagination.total_pages);
-  //   });
-  // }, [page]);
-
   return (
-    <Grid className={classes.rootStyles} container spacing={3}>
-      <Grid item xs={3}>
-        <form className={classes.formStyles} onSubmit={handleSubmit}>
-          <FormGroup>
-            <TextField
-              id="location"
-              label="Location"
-              value={location}
-              onChange={(e) => updateLocation(e.target.value)}
-              margin="normal"
-              size="small"
-            />
-          </FormGroup>
-          <BreedDropdown />
-          <SizeDropDown />
-          <AgeDropDown />
-          <Button variant="contained" color="primary" type="submit">
-            Search
-          </Button>
-        </form>
-      </Grid>
-      <Grid item xs={9}>
-        <Results />
-      </Grid>
-    </Grid>
+    <form className={classes.formStyles} onSubmit={handleSubmit}>
+      <FormGroup>
+        <TextField
+          id="location"
+          label="Location"
+          value={location}
+          onChange={(e) => updateLocation(e.target.value)}
+          margin="normal"
+          size="small"
+        />
+      </FormGroup>
+      <BreedDropdown />
+      <SizeDropDown />
+      <AgeDropDown />
+      <Button variant="contained" color="primary" type="submit">
+        Search
+      </Button>
+    </form>
   );
 };
 
@@ -106,6 +83,7 @@ const mapStateToProps = (state) => ({
   breed: state.form.breed,
   size: state.form.size,
   age: state.form.age,
+  page: state.form.page,
   breeds: state.breeds,
 });
 
@@ -115,8 +93,9 @@ const mapDispatchToProps = (dispatch) => ({
   updateSize: (size) => dispatch(setSize(size)),
   updateAge: (age) => dispatch(setAge(age)),
   updateBreeds: () => dispatch(fetchBreeds()),
-  handleSearch: (breed, location, size, age, page) => {
-    dispatch(fetchDogs(breed, location, size, age, page));
+  resetPage: () => dispatch(setPage(1)),
+  handleSearch: (breed, location, size, age) => {
+    dispatch(fetchDogs(breed, location, size, age, 1));
   },
 });
 

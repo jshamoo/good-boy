@@ -47,7 +47,13 @@ const DogPage = () => {
   }, []);
 
   if (!dog) {
-    return <img src="/loading.gif" />;
+    return (
+      <Grid container justify="center">
+        <Grid item>
+          <img src="/loading.gif" />
+        </Grid>
+      </Grid>
+    );
   }
   return (
     <Card className={classes.root}>

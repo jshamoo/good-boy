@@ -18,12 +18,7 @@ export const setLocation = (location) => ({
   location,
 });
 
-export const setPage = (page) => {
-  return {
-    type: "SET_PAGE",
-    page,
-  };
-};
+export const setPage = (page) => ({ type: "SET_PAGE", page });
 
 // async actions
 import { getDogBreeds, getDogs } from "../petFinder";
