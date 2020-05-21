@@ -3,6 +3,7 @@
     "eslint:recommended",
     "plugin:import/errors",
     "plugin:react/recommended",
+    "plugin:jest/recommended",
     "prettier",
     "prettier/react"
   ],
@@ -10,9 +11,14 @@
     "react/prop-types": 0,
     "no-console": 1,
     "react-hooks/rules-of-hooks": 2,
-    "react-hooks/exhaustive-deps": 1
+    "react-hooks/exhaustive-deps": 1,
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error"
   },
-  "plugins": ["react", "import", "react-hooks"],
+  "plugins": ["react", "import", "react-hooks", "jest"],
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",
@@ -27,6 +33,9 @@
   },
   "settings": {
     "react": {
+      "version": "detect"
+    },
+    "jest": {
       "version": "detect"
     }
   }
