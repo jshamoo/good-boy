@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { AppBar, Typography, makeStyles } from "@material-ui/core";
-import "typeface-roboto";
+import "typeface-roboto/index.css";
 
 const useStyles = makeStyles((theme) => ({
   headerStyles: {
@@ -17,7 +17,7 @@ const NavBar = () => {
       <Link to="/" style={{ textDecoration: "none" }}>
         <Typography variant="h3" noWrap className={classes.headerStyles}>
           Good Boy
-          <img src="/dog.png" width="45" />
+          <img src="/dog.png" width="45" alt="logo" />
         </Typography>
       </Link>
     </AppBar>

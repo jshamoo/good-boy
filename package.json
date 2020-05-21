@@ -4,7 +4,7 @@
   "description": "Pet Adoption Search and Email Alert",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest --watch --coverage",
     "dev": "webpack-dev-server"
   },
   "repository": {
