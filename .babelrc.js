@@ -9,10 +9,11 @@ module.exports = {
         targets: {
           browsers: "last 2 versions",
         },
-        loose: true,
+        // loose: true,
         modules: isTest ? "commonjs" : false,
       },
     ],
     ["@emotion/babel-preset-css-prop", { sourceMap: false }],
   ],
+  plugins: ["@babel/plugin-transform-runtime"],
 };

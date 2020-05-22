@@ -23,12 +23,12 @@ const getDogBreeds = () => {
             resolve(resp.data.breeds.map((breed) => breed.name));
           })
           .catch((err) => {
-            console.log("GET error", err);
+            // console.log("GET error", err);
             reject(err);
           });
       })
       .catch((err) => {
-        console.log("POST error", err);
+        // console.log("POST error", err);
         reject(err);
       });
   });
@@ -70,7 +70,7 @@ const getDogs = (breed, location, size, age, page) => {
           });
       })
       .catch((err) => {
-        console.log("POST error", err);
+        // console.log("POST error", err);
         reject(err);
       });
   });
