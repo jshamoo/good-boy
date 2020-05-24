@@ -31,7 +31,7 @@ const Results = (props) => {
   }, [page]);
 
   if (dogs === null) {
-    return <img src="/loading.gif" />;
+    return <img src="/loading.gif" alt="loading-img" />;
   }
 
   if (dogs.length === 0) {
@@ -62,12 +62,13 @@ const Results = (props) => {
               page={page}
               color="primary"
               onChange={handlePageClick}
+              data-testid="pagination"
             />
           </Grid>
         </Grid>
       )}
       <ScrollTop>
-        <Fab color="secondary" size="small">
+        <Fab color="secondary" size="small" data-testid="fab">
           <KeyboardArrowUpIcon />
         </Fab>
       </ScrollTop>

@@ -3,3 +3,4 @@ node_modules/
 dist/bundle.js
 config.js
 .vscode
+coverage

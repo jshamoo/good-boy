@@ -19,7 +19,11 @@ const ScrollTop = ({ children }) => {
 
   return (
     <Zoom in={trigger}>
-      <div onClick={handleClick} className={classes.scrollTop}>
+      <div
+        onClick={handleClick}
+        className={classes.scrollTop}
+        data-testid="scroll-top"
+      >
         {children}
       </div>
     </Zoom>

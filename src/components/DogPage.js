@@ -48,7 +48,7 @@ const DogPage = () => {
 
   if (!dog) {
     return (
-      <Grid container justify="center">
+      <Grid container justify="center" data-testid="dog-page">
         <Grid item>
           <img src="/loading.gif" />
         </Grid>
@@ -56,7 +56,7 @@ const DogPage = () => {
     );
   }
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} data-testid="dog-page">
       <Grid container className={classes.main}>
         <Grid item xs={12}>
           <Typography variant="h2"> Meet {dog.name}</Typography>
